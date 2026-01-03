@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Red Theme Colors -->
+    <color name="primary_red">#D32F2F</color>
+    <color name="primary_red_dark">#B71C1C</color>
+    <color name="primary_red_light">#FFCDD2</color>
+    <color name="accent_red">#FF5252</color>
+
+    <!-- Background Colors -->
+    <color name="background_light">#F5F5F5</color>
+    <color name="background_white">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+
+    <!-- Status Colors -->
+    <color name="success_green">#4CAF50</color>
+    <color name="warning_orange">#FF9800</color>
+    <color name="error_red">#F44336</color>
+
+    <!-- Card Colors -->
+    <color name="card_expense">#FFEBEE</color>
+    <color name="card_income">#E8F5E9</color>
+</resources>

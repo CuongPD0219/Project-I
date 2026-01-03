@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quản lý chi tiêu</string>
+    <string name="login">Đăng nhập</string>
+    <string name="register">Đăng ký</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="profile">Thông tin cá nhân</string>
+    <string name="statistics">Thống kê</string>
+    <string name="add_expense">Thêm giao dịch</string>
+    <string name="edit_expense">Chỉnh sửa giao dịch</string>
+    <string name="delete_expense">Xóa giao dịch</string>
+    <string name="save">Lưu</string>
+    <string name="cancel">Hủy</string>
+</resources>
