@@ -1,22 +1,15 @@
 package com.example.expensemanager.activities
 
 import android.app.DatePickerDialog
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import com.example.expensemanager.R
-import com.example.expensemanager.database.AppDatabase
-import com.example.expensemanager.database.User
 import com.example.expensemanager.databinding.ActivityRegisterBinding
+import com.example.expensemanager.database.User
 import com.example.expensemanager.viewmodel.AuthViewModel
-import kotlinx.coroutines.launch
+import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -32,36 +25,13 @@ class RegisterActivity : AppCompatActivity() {
         setupListeners()
     }
 
-    // Cho phép người dùng chọn ngày tháng(lịch) và cập nhật vào trong ô ngày sinh
-    private fun showDatePicker(){
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(
-            this,
-            { _, selectedYear, selectedMonth, selectedDay ->
-                selectedDate =
-                    String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
-                binding.etDob.setText(selectedDate)
-            },
-            year, month, day
-        )
-        datePickerDialog.show()
-    }
-
-    private fun setupObservers(){
+    private fun setupObservers() {
         viewModel.registerResult.observe(this) { result ->
             binding.progressBar.visibility = View.GONE
             binding.btnRegister.isEnabled = true
 
             result.onSuccess {
-                Toast.makeText(
-                    this,
-                    "Dang ky thanh cong! Vui long dang nhap lai",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show()
                 finish()
             }
 
@@ -71,9 +41,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-
-
-    private fun setupListeners(){
+    private fun setupListeners() {
         binding.etDob.setOnClickListener {
             showDatePicker()
         }
@@ -87,39 +55,53 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun registerUser(){
-        val username = binding.etUsername.text.toString()
-        val password = binding.etPassword.text.toString()
-        val confirmPass = binding.etConfirmPassword.text.toString()
-        val fullName = binding.etFullName.text.toString()
-        val dateOfBirth = binding.etDob.text.toString()
-        val address = binding.etAddress.text.toString()
-        val occupation = binding.etOccupation.text.toString()
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                selectedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+                binding.etDob.setText(selectedDate)
+            },
+            year, month, day
+        )
+        datePickerDialog.show()
+    }
+
+    private fun registerUser() {
+        val username = binding.etUsername.text.toString().trim()
+        val password = binding.etPassword.text.toString().trim()
+        val confirmPassword = binding.etConfirmPassword.text.toString().trim()
+        val fullName = binding.etFullName.text.toString().trim()
+        val dob = binding.etDob.text.toString().trim()
+        val address = binding.etAddress.text.toString().trim()
+        val occupation = binding.etOccupation.text.toString().trim()
 
         when {
             username.isEmpty() || password.isEmpty() || fullName.isEmpty() -> {
-                Toast.makeText(this, "Vui long nhap day du thong tin", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Vui lòng điền đầy đủ thông tin bắt buộc", Toast.LENGTH_SHORT).show()
             }
-
-            password  != confirmPass ->{
-                Toast.makeText(this, "Mat khau khong khop, vui long nhap lai", Toast.LENGTH_SHORT).show()
+            password != confirmPassword -> {
+                Toast.makeText(this, "Mật khẩu xác nhận không khớp", Toast.LENGTH_SHORT).show()
             }
-
             password.length < 6 -> {
-                Toast.makeText(this, "Mat khau phai co it nhat 6 ky tu", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Mật khẩu phải có ít nhất 6 ký tự", Toast.LENGTH_SHORT).show()
             }
-
-            else->{
+            else -> {
                 val user = User(
                     username = username,
                     password = password,
                     fullName = fullName,
-                    dateOfBirth = dateOfBirth,
+                    dateOfBirth = dob,
                     address = address,
                     occupation = occupation
                 )
 
-                binding.progressBar.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
                 binding.btnRegister.isEnabled = false
                 viewModel.register(user)
             }

@@ -12,16 +12,11 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.example.expensemanager.database.AppDatabase
-import com.example.expensemanager.database.User
 import com.example.expensemanager.databinding.ActivityProfileBinding
+import com.example.expensemanager.database.User
 import com.example.expensemanager.viewmodel.UserViewModel
-import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
-import java.util.Calendar
-
-
+import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -31,12 +26,10 @@ class ProfileActivity : AppCompatActivity() {
     private var selectedImageBase64: String? = null
     private var selectedDate = ""
 
-
-    // xử lý ảnh trả về từ một ứng dụng khác thông qua Intent
     private val imagePickerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ) { result -> // result chứa tất cả thông tin ảnh trả về
-        if (result.resultCode == RESULT_OK) { // nếu thành công
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
             result.data?.data?.let { uri ->
                 handleImageSelection(uri)
             }
@@ -48,79 +41,71 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Tuỳ chỉnh thanh công cụ phía trên của màn hình
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Thông tin cá nhân"
+        supportActionBar?.title = "Thông tin Cá nhân"
 
-        userId = intent.getIntExtra("userId",-1)
+        userId = intent.getIntExtra("userId", -1)
 
-        if(userId == -1){
-            Toast.makeText(this@ProfileActivity, "Không thể tải dữ liệu người dùng", Toast.LENGTH_SHORT).show()
+        if (userId == -1) {
             finish()
             return
         }
 
-        setupObserves()
+        setupObservers()
         setupListeners()
         viewModel.loadUser(userId)
     }
 
-
-    private fun setupObserves(){
-        viewModel.user.observe(this){ user ->
-            user?.let{
+    private fun setupObservers() {
+        viewModel.user.observe(this) { user ->
+            user?.let {
                 currentUser = it
                 displayUserData(it)
             }
         }
 
-        viewModel.updateResult.observe(this){ result ->
+        viewModel.updateResult.observe(this) { result ->
             binding.progressBar.visibility = View.GONE
             binding.btnSave.isEnabled = true
 
-            result.onSuccess{ success ->
-                if(success) {
-                    Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
-                }else{
-                    Toast.makeText(this, "Co loi xay ra", Toast.LENGTH_SHORT).show()
+            result.onSuccess { success ->
+                if (success) {
+                    Toast.makeText(this, "Cập nhật thông tin thành công", Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Có lỗi xảy ra", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            result.onFailure{exception->
-                Toast.makeText(this, "Co loi xay ra: ${exception.message}", Toast.LENGTH_SHORT).show()
+            result.onFailure { exception ->
+                Toast.makeText(this, "Có lỗi xảy ra: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun displayUserData(user: User){
+    private fun displayUserData(user: User) {
         binding.etFullName.setText(user.fullName)
         binding.etDob.setText(user.dateOfBirth)
         binding.etAddress.setText(user.address)
         binding.etOccupation.setText(user.occupation)
-        binding.tvUsername.text = "Ten dang nhap: ${user.username}"
+        binding.tvUsername.text = "Tên đăng nhập: ${user.username}"
 
         selectedDate = user.dateOfBirth
 
-        user.profileImage?.let{ base64Image ->
-            if(base64Image.isNotEmpty()){
-                try{
+        user.profileImage?.let { base64Image ->
+            if (base64Image.isNotEmpty()) {
+                try {
                     val imageBytes = Base64.decode(base64Image, Base64.DEFAULT)
                     val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
                     binding.imgProfile.setImageBitmap(bitmap)
-                }catch(e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
         }
     }
 
-    // mở ảnh
-    private fun openImagePicker(){
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        imagePickerLauncher.launch(intent)
-    }
-
-    private fun setupListeners(){
+    private fun setupListeners() {
         binding.imgProfile.setOnClickListener {
             openImagePicker()
         }
@@ -138,30 +123,36 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleImageSelection(uri: Uri){
-        try{
+    private fun openImagePicker() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        imagePickerLauncher.launch(intent)
+    }
+
+    private fun handleImageSelection(uri: Uri) {
+        try {
             val inputStream = contentResolver.openInputStream(uri)
             val bitmap = BitmapFactory.decodeStream(inputStream)
 
+            // Compress and convert to base64
             val outputStream = ByteArrayOutputStream()
-            bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG,80,outputStream)
+            bitmap.compress(android.graphics.Bitmap.CompressFormat.JPEG, 80, outputStream)
             val imageBytes = outputStream.toByteArray()
             selectedImageBase64 = Base64.encodeToString(imageBytes, Base64.DEFAULT)
 
             binding.imgProfile.setImageBitmap(bitmap)
-        }catch(e: Exception){
-            Toast.makeText(this, "Khong the tai anh", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(this, "Không thể tải ảnh", Toast.LENGTH_SHORT).show()
         }
     }
 
-    // hiển thị lịch để người dùng chọn ngày tháng hợp lệ
     private fun showDatePicker() {
         val calendar = Calendar.getInstance()
 
+        // Parse current date if exists
         if (selectedDate.isNotEmpty()) {
             val parts = selectedDate.split("-")
-            if (parts.size == 3) {// lịch hợp lệ
-                calendar.set(parts[0].toInt(), parts[1].toInt() - 1, parts[2].toInt()) // tháng trong Calendar từ 0 -> 11
+            if (parts.size == 3) {
+                calendar.set(parts[0].toInt(), parts[1].toInt() - 1, parts[2].toInt())
             }
         }
 
@@ -172,8 +163,7 @@ class ProfileActivity : AppCompatActivity() {
         val datePickerDialog = DatePickerDialog(
             this,
             { _, selectedYear, selectedMonth, selectedDay ->
-                selectedDate =
-                    String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
+                selectedDate = String.format("%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
                 binding.etDob.setText(selectedDate)
             },
             year, month, day
@@ -181,37 +171,34 @@ class ProfileActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
-    // lưu thông tin người dùng lên cơ sở dữ liệu và ứng dụng
-    private fun saveProfile(){
+    private fun saveProfile() {
         val fullName = binding.etFullName.text.toString().trim()
-        val dateOfBirth = binding.etDob.text.toString().trim()
+        val dob = binding.etDob.text.toString().trim()
         val address = binding.etAddress.text.toString().trim()
         val occupation = binding.etOccupation.text.toString().trim()
 
-        if(fullName.isEmpty()){
-            Toast.makeText(this, "Vui long nhap ho ten", Toast.LENGTH_SHORT).show()
+        if (fullName.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập họ tên", Toast.LENGTH_SHORT).show()
             return
         }
 
-        currentUser?.let{user->
-            val updateUser = user.copy(
+        currentUser?.let { user ->
+            val updatedUser = user.copy(
                 fullName = fullName,
-                dateOfBirth = dateOfBirth,
+                dateOfBirth = dob,
                 address = address,
                 occupation = occupation,
-                profileImage = selectedImageBase64?: user.profileImage
+                profileImage = selectedImageBase64 ?: user.profileImage
             )
 
             binding.progressBar.visibility = View.VISIBLE
             binding.btnSave.isEnabled = false
-            viewModel.updateUser(updateUser)
+            viewModel.updateUser(updatedUser)
         }
     }
 
-    // xử lý khi người dùng nhấn nút Back
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return true
-
     }
 }

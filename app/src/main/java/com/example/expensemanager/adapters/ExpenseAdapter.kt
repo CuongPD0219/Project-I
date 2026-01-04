@@ -1,4 +1,4 @@
-package com.example.expensemanager.apdapters
+package com.example.expensemanager.adapters
 
 import android.graphics.Color
 import android.view.LayoutInflater

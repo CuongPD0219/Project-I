@@ -2,29 +2,24 @@ package com.example.expensemanager.activities
 
 import android.content.Context
 import android.content.Intent
-import android.icu.text.NumberFormat
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.expensemanager.R
-import com.example.expensemanager.apdapters.ExpenseAdapter
-import com.example.expensemanager.database.AppDatabase
-import com.example.expensemanager.database.Expense
+import com.example.expensemanager.adapters.ExpenseAdapter
 import com.example.expensemanager.databinding.ActivityMainBinding
+import com.example.expensemanager.database.Expense
 import com.example.expensemanager.viewmodel.ExpenseViewModel
-import kotlinx.coroutines.launch
-import java.util.Locale
+import java.text.NumberFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
-
+    private lateinit var binding: ActivityMainBinding
     private val viewModel: ExpenseViewModel by viewModels()
     private lateinit var expenseAdapter: ExpenseAdapter
     private var userId: Int = -1
@@ -32,17 +27,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        enableEdgeToEdge()
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "Quan ly chi tieu"
+        supportActionBar?.title = "Quản lý Chi tiêu"
 
+        val prefs = getSharedPreferences("ExpenseManagerPrefs", Context.MODE_PRIVATE)
+        userId = intent.getIntExtra("userId", prefs.getInt("userId", -1))
 
-        val prefs = getSharedPreferences("ExpenseManager", Context.MODE_PRIVATE)
-        userId = intent.getIntExtra("userId",prefs.getInt("userId",-1))
-
-        if(userId == -1){
+        if (userId == -1) {
             finish()
             return
         }
@@ -54,32 +47,34 @@ class MainActivity : AppCompatActivity() {
         loadData()
     }
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
         loadData()
     }
 
-    private fun loadData(){
+    private fun loadData() {
         viewModel.loadAllExpenses(userId)
         viewModel.loadSummary(userId)
     }
 
-    private fun setupObservers(){
-        viewModel.expenses.observe(this){expenses ->
+    private fun setupObservers() {
+        // Observe expenses list
+        viewModel.expenses.observe(this) { expenses ->
             expenseAdapter.submitList(expenses)
 
-            if(expenses.isEmpty()){
+            if (expenses.isEmpty()) {
                 binding.tvEmptyState.visibility = View.VISIBLE
                 binding.rvExpenses.visibility = View.GONE
-            }else{
+            } else {
                 binding.tvEmptyState.visibility = View.GONE
                 binding.rvExpenses.visibility = View.VISIBLE
             }
         }
 
+        // Observe summary data
         val formatter = NumberFormat.getCurrencyInstance(Locale("vi", "VN"))
 
-        viewModel.totalExpense.observe(this){total ->
+        viewModel.totalExpense.observe(this) { total ->
             binding.tvTotalExpense.text = formatter.format(total)
         }
 
@@ -87,29 +82,28 @@ class MainActivity : AppCompatActivity() {
             binding.tvTotalIncome.text = formatter.format(total)
         }
 
-        viewModel.balance.observe(this){balance ->
+        viewModel.balance.observe(this) { balance ->
             binding.tvBalance.text = formatter.format(balance)
             binding.tvBalance.setTextColor(
-                if(balance >= 0)
+                if (balance >= 0)
                     resources.getColor(android.R.color.holo_green_dark, null)
                 else
                     resources.getColor(android.R.color.holo_red_dark, null)
             )
         }
 
-        viewModel.operationResult.observe(this){result ->
+        // Observe operation results
+        viewModel.operationResult.observe(this) { result ->
             result.onSuccess {
                 loadData()
             }
-
-            result.onFailure { exception->
+            result.onFailure { exception ->
                 exception.printStackTrace()
             }
         }
     }
 
-
-    private fun setupListeners(){
+    private fun setupListeners() {
         binding.fabAdd.setOnClickListener {
             val intent = Intent(this, AddExpenseActivity::class.java)
             intent.putExtra("userId", userId)
@@ -117,20 +111,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu : Menu?): Boolean{
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            R.id.action_profile ->{
+        return when (item.itemId) {
+            R.id.action_profile -> {
                 val intent = Intent(this, ProfileActivity::class.java)
                 intent.putExtra("userId", userId)
                 startActivity(intent)
                 true
             }
-            R.id.action_statistics ->{
+            R.id.action_statistics -> {
                 val intent = Intent(this, StatisticsActivity::class.java)
                 intent.putExtra("userId", userId)
                 startActivity(intent)
@@ -144,53 +138,49 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         expenseAdapter = ExpenseAdapter(
-            onEditClick = {expense -> editExpense(expense)},
-            onDeleteClick = {expense -> deleteExpense(expense)}
+            onEditClick = { expense -> editExpense(expense) },
+            onDeleteClick = { expense -> deleteExpense(expense) }
         )
-        binding.rvExpenses.apply{
+        binding.rvExpenses.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = expenseAdapter
         }
     }
 
-
-
-    private fun editExpense(expense: Expense){
+    private fun editExpense(expense: Expense) {
         val intent = Intent(this, AddExpenseActivity::class.java)
-        intent.putExtra("userId",userId)
+        intent.putExtra("userId", userId)
         intent.putExtra("expenseId", expense.id)
         startActivity(intent)
     }
 
-    private fun deleteExpense(expense: Expense){
+    private fun deleteExpense(expense: Expense) {
         AlertDialog.Builder(this)
-            .setTitle("Xoa giao dich")
-            .setMessage("Ban co chac chan muon xoa giao dich nay?")
-            .setPositiveButton("Xoa"){_, _ ->
-               viewModel.deleteExpense(expense)
+            .setTitle("Xóa giao dịch")
+            .setMessage("Bạn có chắc muốn xóa giao dịch này?")
+            .setPositiveButton("Xóa") { _, _ ->
+                viewModel.deleteExpense(expense)
             }
-            .setNegativeButton("Huy", null)
+            .setNegativeButton("Hủy", null)
             .show()
     }
 
-
-    private fun showLogoutDialog(){
+    private fun showLogoutDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Dang xuat")
-            .setMessage("Ban co chac chan muon dang xuat?")
-            .setPositiveButton("Dang xuat"){_, _ ->
-                val prefs = getSharedPreferences("ExpenseManager", Context.MODE_PRIVATE)
-                prefs.edit().remove("userId").apply()
+            .setTitle("Đăng xuất")
+            .setMessage("Bạn có chắc muốn đăng xuất?")
+            .setPositiveButton("Đăng xuất") { _, _ ->
+                val prefs = getSharedPreferences("ExpenseManagerPrefs", Context.MODE_PRIVATE)
+                prefs.edit().clear().apply()
 
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()
             }
-            .setNegativeButton("Huy", null)
+            .setNegativeButton("Hủy", null)
             .show()
     }
-
 }
