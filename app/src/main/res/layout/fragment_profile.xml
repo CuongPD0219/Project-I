@@ -14,8 +14,8 @@
         <!-- Header with profile image -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/primary_red"
+            android:layout_height="220dp"
+            android:background="@drawable/profile_header_bg"
             android:padding="24dp">
 
             <LinearLayout
@@ -25,29 +25,22 @@
                 android:gravity="center"
                 android:layout_centerInParent="true">
 
-                <com.google.android.material.card.MaterialCardView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    app:cardCornerRadius="60dp"
-                    app:cardElevation="8dp"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:id="@+id/imgProfile"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_person"
-                        android:contentDescription="Profile Image" />
-                </com.google.android.material.card.MaterialCardView>
+                    android:src="@drawable/mu"
+                    app:civ_border_width="4dp"
+                    app:civ_border_color="@android:color/white"
+                    android:layout_marginBottom="12dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnChangeImage"
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
+                    android:layout_height="40dp"
                     android:text="Đổi ảnh"
                     android:textSize="12sp"
-                    app:cornerRadius="18dp"
+                    app:cornerRadius="20dp"
                     app:backgroundTint="@android:color/white"
                     android:textColor="@color/primary_red"
                     style="@style/Widget.Material3.Button.OutlinedButton" />
@@ -97,6 +90,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Họ và tên *"
                         app:startIconDrawable="@drawable/ic_badge"
+                        app:startIconTint="@color/primary_red"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusTopStart="12dp"
                         app:boxCornerRadiusTopEnd="12dp"
@@ -117,6 +111,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Ngày sinh"
                         app:startIconDrawable="@drawable/ic_calendar"
+                        app:startIconTint="@color/primary_red"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusTopStart="12dp"
                         app:boxCornerRadiusTopEnd="12dp"
@@ -138,6 +133,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Địa chỉ"
                         app:startIconDrawable="@drawable/ic_location"
+                        app:startIconTint="@color/primary_red"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusTopStart="12dp"
                         app:boxCornerRadiusTopEnd="12dp"
@@ -158,6 +154,7 @@
                         android:layout_height="wrap_content"
                         android:hint="Nghề nghiệp"
                         app:startIconDrawable="@drawable/ic_work"
+                        app:startIconTint="@color/primary_red"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusTopStart="12dp"
                         app:boxCornerRadiusTopEnd="12dp"

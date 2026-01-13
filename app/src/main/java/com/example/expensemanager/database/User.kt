@@ -18,7 +18,6 @@ data class User(
     val dateOfBirth: String,
     val address: String,
     val occupation: String,
-    val profileImage: String? = null
 ){
 
 }

@@ -12,6 +12,17 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thống kê"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="16dp" />
+
         <!-- Month/Year Selector -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -130,6 +141,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Thu nhập"
+                            android:drawableStart="@drawable/ic_up"
                             android:textColor="@android:color/white"
                             android:textSize="12sp"
                             android:layout_marginBottom="4dp" />
@@ -155,6 +167,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Chi tiêu"
+                            android:drawableStart="@drawable/ic_down"
                             android:textColor="@android:color/white"
                             android:textSize="12sp"
                             android:layout_marginBottom="4dp" />
@@ -223,18 +236,26 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartExpense"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp" />
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="16dp" />
 
                 <TextView
                     android:id="@+id/tvNoExpenseData"
                     android:layout_width="wrap_content"
-                    android:layout_height="300dp"
+                    android:layout_height="250dp"
                     android:text="Không có dữ liệu chi tiêu"
                     android:textSize="14sp"
                     android:textColor="@color/text_secondary"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:visibility="gone" />
+
+                <!-- Custom Legend -->
+                <LinearLayout
+                    android:id="@+id/llExpenseLegend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -264,18 +285,26 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartIncome"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp" />
+                    android:layout_height="250dp"
+                    android:layout_marginBottom="16dp" />
 
                 <TextView
                     android:id="@+id/tvNoIncomeData"
                     android:layout_width="wrap_content"
-                    android:layout_height="300dp"
+                    android:layout_height="250dp"
                     android:text="Không có dữ liệu thu nhập"
                     android:textSize="14sp"
                     android:textColor="@color/text_secondary"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:visibility="gone" />
+
+                <!-- Custom Legend -->
+                <LinearLayout
+                    android:id="@+id/llIncomeLegend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
