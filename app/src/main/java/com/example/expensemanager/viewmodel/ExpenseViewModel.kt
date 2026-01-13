@@ -8,11 +8,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.expensemanager.database.AppDatabase
 import com.example.expensemanager.database.Expense
 import com.example.expensemanager.repository.ExpenseRepository
+import com.example.expensemanager.utils.SingleLiveEvent
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ExpenseViewModel(application: Application) : AndroidViewModel(application) {
-
     private val repository: ExpenseRepository
+
+    private val _expense = MutableLiveData<Expense?>()
+    val expense: LiveData<Expense?> = _expense
 
     private val _expenses = MutableLiveData<List<Expense>>()
     val expenses: LiveData<List<Expense>> = _expenses
@@ -26,12 +30,20 @@ class ExpenseViewModel(application: Application) : AndroidViewModel(application)
     private val _balance = MutableLiveData<Double>()
     val balance: LiveData<Double> = _balance
 
-    private val _operationResult = MutableLiveData<Result<Boolean>>()
-    val operationResult: LiveData<Result<Boolean>> = _operationResult
+    private val _operationResult = SingleLiveEvent<Result<Boolean>>()
+    val operationResult: SingleLiveEvent<Result<Boolean>> = _operationResult
 
     init {
         val expenseDao = AppDatabase.getDatabase(application).expenseDao()
         repository = ExpenseRepository(expenseDao)
+    }
+
+    fun setExpenseForEdit(expense: Expense) {
+        _expense.value = expense
+    }
+
+    fun clearExpenseForEdit(){
+        _expense.value = null
     }
 
     fun loadAllExpenses(userId: Int) {
@@ -44,6 +56,7 @@ class ExpenseViewModel(application: Application) : AndroidViewModel(application)
             }
         }
     }
+
 
     fun loadExpensesByMonth(userId: Int, year: Int, month: Int) {
         viewModelScope.launch {
@@ -63,8 +76,8 @@ class ExpenseViewModel(application: Application) : AndroidViewModel(application)
     fun loadSummary(userId: Int) {
         viewModelScope.launch {
             try {
-                val expense = repository.getTotalByType(userId, "expense")
-                val income = repository.getTotalByType(userId, "income")
+                val expense = repository.getTotalByType(userId, "Chi tiêu")
+                val income = repository.getTotalByType(userId, "Thu nhập")
 
                 _totalExpense.value = expense
                 _totalIncome.value = income
@@ -85,6 +98,7 @@ class ExpenseViewModel(application: Application) : AndroidViewModel(application)
             }
         }
     }
+
 
     fun updateExpense(expense: Expense) {
         viewModelScope.launch {
@@ -114,8 +128,11 @@ class ExpenseViewModel(application: Application) : AndroidViewModel(application)
                 val expense = repository.getExpenseById(expenseId)
                 callback(expense)
             } catch (e: Exception) {
+                e.printStackTrace()
                 callback(null)
             }
         }
     }
+
+
 }

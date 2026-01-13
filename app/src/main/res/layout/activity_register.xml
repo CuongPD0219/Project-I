@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light"
+    android:background="@color/c3"
     android:fillViewport="true">
 
     <LinearLayout
@@ -13,53 +13,66 @@
         android:padding="24dp">
 
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đăng ký Tài khoản"
-            android:textSize="28sp"
+            android:textSize="32sp"
             android:textStyle="bold"
-            android:textColor="@color/primary_red"
+            android:textColor="@color/text_white"
+            android:shadowColor="@color/shadow_dark"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp" />
 
         <TextView
+            android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tạo tài khoản mới để bắt đầu"
             android:textSize="14sp"
-            android:textColor="@color/text_secondary"
+            android:textColor="@color/text_white"
+            android:alpha="0.9"
             android:layout_marginBottom="24dp" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="12dp"
             android:layout_marginBottom="24dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:padding="24dp"
+                android:background="@color/background_white">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Tên đăng nhập *"
                     app:startIconDrawable="@drawable/ic_person"
+                    app:startIconTint="@color/gradient_coral_start"
                     app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    android:layout_marginBottom="12dp">
+                    app:boxStrokeColor="@color/gradient_coral_start"
+                    app:hintTextColor="@color/gradient_coral_start"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    android:layout_marginBottom="14dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etUsername"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:textSize="15sp"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,18 +81,22 @@
                     android:layout_height="wrap_content"
                     android:hint="Họ và tên *"
                     app:startIconDrawable="@drawable/ic_badge"
+                    app:startIconTint="@color/gradient_coral_start"
                     app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    android:layout_marginBottom="12dp">
+                    app:boxStrokeColor="@color/gradient_coral_start"
+                    app:hintTextColor="@color/gradient_coral_start"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    android:layout_marginBottom="14dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etFullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
+                        android:textSize="15sp"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,12 +105,15 @@
                     android:layout_height="wrap_content"
                     android:hint="Ngày sinh"
                     app:startIconDrawable="@drawable/ic_calendar"
+                    app:startIconTint="@color/gradient_coral_start"
                     app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    android:layout_marginBottom="12dp">
+                    app:boxStrokeColor="@color/gradient_coral_start"
+                    app:hintTextColor="@color/gradient_coral_start"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    android:layout_marginBottom="14dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etDob"
@@ -101,6 +121,7 @@
                         android:layout_height="wrap_content"
                         android:focusable="false"
                         android:clickable="true"
+                        android:textSize="15sp"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,18 +130,22 @@
                     android:layout_height="wrap_content"
                     android:hint="Địa chỉ"
                     app:startIconDrawable="@drawable/ic_location"
+                    app:startIconTint="@color/gradient_coral_start"
                     app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    android:layout_marginBottom="12dp">
+                    app:boxStrokeColor="@color/gradient_coral_start"
+                    app:hintTextColor="@color/gradient_coral_start"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    android:layout_marginBottom="14dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPostalAddress"
+                        android:textSize="15sp"
                         android:maxLines="2" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,18 +154,22 @@
                     android:layout_height="wrap_content"
                     android:hint="Nghề nghiệp"
                     app:startIconDrawable="@drawable/ic_work"
+                    app:startIconTint="@color/gradient_coral_start"
                     app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    android:layout_marginBottom="12dp">
+                    app:boxStrokeColor="@color/gradient_coral_start"
+                    app:hintTextColor="@color/gradient_coral_start"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    android:layout_marginBottom="14dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etOccupation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:textSize="15sp"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,19 +178,24 @@
                     android:layout_height="wrap_content"
                     android:hint="Mật khẩu *"
                     app:startIconDrawable="@drawable/ic_lock"
+                    app:startIconTint="@color/gradient_coral_start"
                     app:endIconMode="password_toggle"
+                    app:endIconTint="@color/gradient_coral_start"
                     app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    android:layout_marginBottom="12dp">
+                    app:boxStrokeColor="@color/gradient_coral_start"
+                    app:hintTextColor="@color/gradient_coral_start"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    android:layout_marginBottom="14dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
+                        android:textSize="15sp"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -170,31 +204,40 @@
                     android:layout_height="wrap_content"
                     android:hint="Xác nhận mật khẩu *"
                     app:startIconDrawable="@drawable/ic_lock"
+                    app:startIconTint="@color/gradient_coral_start"
                     app:endIconMode="password_toggle"
+                    app:endIconTint="@color/gradient_coral_start"
                     app:boxBackgroundMode="outline"
-                    app:boxCornerRadiusTopStart="12dp"
-                    app:boxCornerRadiusTopEnd="12dp"
-                    app:boxCornerRadiusBottomStart="12dp"
-                    app:boxCornerRadiusBottomEnd="12dp"
-                    android:layout_marginBottom="20dp">
+                    app:boxStrokeColor="@color/gradient_coral_start"
+                    app:hintTextColor="@color/gradient_coral_start"
+                    app:boxCornerRadiusTopStart="14dp"
+                    app:boxCornerRadiusTopEnd="14dp"
+                    app:boxCornerRadiusBottomStart="14dp"
+                    app:boxCornerRadiusBottomEnd="14dp"
+                    android:layout_marginBottom="24dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etConfirmPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
+                        android:textSize="15sp"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="58dp"
                     android:text="Đăng ký"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
-                    app:cornerRadius="12dp"
-                    app:backgroundTint="@color/primary_red" />
+                    android:textColor="@color/text_white"
+                    app:cornerRadius="16dp"
+                    app:elevation="6dp"
+                    app:backgroundTint="@null"
+                    android:background="@color/c1"
+                    android:stateListAnimator="@null" />
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -202,6 +245,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
+                    android:indeterminateTint="@color/gradient_coral_start"
                     android:visibility="gone" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -212,25 +256,29 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_gravity="center"
+            android:padding="8dp"
+            android:background="@drawable/rounded_background_white_alpha"
             android:layout_marginBottom="24dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đã có tài khoản? "
-                android:textSize="14sp"
-                android:textColor="@color/text_secondary" />
+                android:textSize="15sp"
+                android:textColor="@color/text_white" />
 
             <TextView
                 android:id="@+id/tvLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đăng nhập"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/primary_red"
+                android:textColor="@color/text_white"
                 android:clickable="true"
-                android:focusable="true" />
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="4dp" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

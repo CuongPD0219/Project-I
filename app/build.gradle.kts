@@ -49,6 +49,13 @@ dependencies {
     implementation("com.google.android.material:material:1.13.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(libs.androidx.activity)
+    implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.animation.core)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(libs.androidx.sqlite.ktx)
+
 
     //Room database
     val room_version = "2.8.4"
@@ -67,12 +74,20 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.12.2")
     implementation("androidx.fragment:fragment-ktx:1.8.9")
 
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.6")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.6")
 
     // thư viện biểu đồ
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     // icon
     implementation("com.github.dhaval2404:imagepicker:2.1")
+
+    // CircleImageView for profile
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    // Lottie for animations
+    implementation("com.airbnb.android:lottie:6.1.0")
 
 
 

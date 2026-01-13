@@ -12,28 +12,61 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Title Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/c1"
+                android:padding="20dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thống kê"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_white"
+                    android:shadowColor="@color/shadow_dark"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="4" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- Month/Year Selector -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
             android:layout_marginBottom="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:background="@color/c3"
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Chọn tháng thống kê"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
-                    android:layout_marginBottom="12dp" />
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="@color/text_primary"
+                    android:layout_marginBottom="16dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,16 +85,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Tháng"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
-                            android:layout_marginBottom="4dp" />
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:layout_marginBottom="6dp" />
 
                         <Spinner
                             android:id="@+id/spinnerMonth"
                             android:layout_width="match_parent"
-                            android:layout_height="48dp"
+                            android:layout_height="52dp"
                             android:background="@drawable/spinner_background"
-                            android:padding="8dp" />
+                            android:padding="10dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -75,43 +109,49 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Năm"
-                            android:textSize="12sp"
-                            android:textColor="@color/text_secondary"
-                            android:layout_marginBottom="4dp" />
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary"
+                            android:layout_marginBottom="6dp" />
 
                         <Spinner
                             android:id="@+id/spinnerYear"
                             android:layout_width="match_parent"
-                            android:layout_height="48dp"
+                            android:layout_height="52dp"
                             android:background="@drawable/spinner_background"
-                            android:padding="8dp" />
+                            android:padding="10dp" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Summary Card -->
+        <!-- Summary Card with Gradient -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/primary_red">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            android:layout_marginBottom="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
+                android:background="@color/c3"
+                android:padding="24dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tổng quan tháng"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="16dp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:shadowColor="@color/shadow_dark"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:layout_marginBottom="20dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -124,15 +164,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:background="@drawable/rounded_background_white_alpha">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Thu nhập"
+                            android:text="↑ Thu nhập"
                             android:textColor="@android:color/white"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="4dp" />
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp" />
 
                         <TextView
                             android:id="@+id/tvMonthlyIncome"
@@ -149,15 +192,20 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:padding="12dp"
+                        android:background="@drawable/rounded_background_white_alpha">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Chi tiêu"
+                            android:text="↓ Chi tiêu"
                             android:textColor="@android:color/white"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="4dp" />
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp" />
 
                         <TextView
                             android:id="@+id/tvMonthlyExpense"
@@ -174,15 +222,18 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:padding="12dp"
+                        android:background="@drawable/rounded_background_white_alpha">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Còn lại"
                             android:textColor="@android:color/white"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="4dp" />
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp" />
 
                         <TextView
                             android:id="@+id/tvMonthlyBalance"
@@ -201,21 +252,21 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
             android:layout_marginBottom="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chi tiêu theo danh mục"
-                    android:textSize="16sp"
+                    android:text="📉 Chi tiêu theo danh mục"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
                     android:layout_marginBottom="16dp" />
@@ -223,18 +274,26 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartExpense"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp" />
+                    android:layout_height="280dp"
+                    android:layout_marginBottom="16dp" />
 
                 <TextView
                     android:id="@+id/tvNoExpenseData"
                     android:layout_width="wrap_content"
-                    android:layout_height="300dp"
-                    android:text="Không có dữ liệu chi tiêu"
-                    android:textSize="14sp"
+                    android:layout_height="280dp"
+                    android:text="📊 Không có dữ liệu chi tiêu"
+                    android:textSize="15sp"
                     android:textColor="@color/text_secondary"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:visibility="gone" />
+
+                <!-- Custom Legend -->
+                <LinearLayout
+                    android:id="@+id/llExpenseLegend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -242,21 +301,21 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
             android:layout_marginBottom="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thu nhập theo danh mục"
-                    android:textSize="16sp"
+                    android:text="📈 Thu nhập theo danh mục"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
                     android:layout_marginBottom="16dp" />
@@ -264,18 +323,26 @@
                 <com.github.mikephil.charting.charts.PieChart
                     android:id="@+id/pieChartIncome"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp" />
+                    android:layout_height="280dp"
+                    android:layout_marginBottom="16dp" />
 
                 <TextView
                     android:id="@+id/tvNoIncomeData"
                     android:layout_width="wrap_content"
-                    android:layout_height="300dp"
-                    android:text="Không có dữ liệu thu nhập"
-                    android:textSize="14sp"
+                    android:layout_height="280dp"
+                    android:text="📊 Không có dữ liệu thu nhập"
+                    android:textSize="15sp"
                     android:textColor="@color/text_secondary"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:visibility="gone" />
+
+                <!-- Custom Legend -->
+                <LinearLayout
+                    android:id="@+id/llIncomeLegend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
