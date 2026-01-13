@@ -229,10 +229,10 @@ class StatisticsFragment : Fragment() {
             val legendView = LayoutInflater.from(requireContext())
                 .inflate(R.layout.item_legend, container, false)
 
-            val colorIndicator = legendView.findViewById<View>(com.example.expensemanager.R.id.viewColorIndicator)
-            val tvCategory = legendView.findViewById<android.widget.TextView>(com.example.expensemanager.R.id.tvCategory)
-            val tvAmount = legendView.findViewById<android.widget.TextView>(com.example.expensemanager.R.id.tvAmount)
-            val progressBar = legendView.findViewById<android.widget.ProgressBar>(com.example.expensemanager.R.id.progressBar)
+            val colorIndicator = legendView.findViewById<View>(R.id.viewColorIndicator)
+            val tvCategory = legendView.findViewById<android.widget.TextView>(R.id.tvCategory)
+            val tvAmount = legendView.findViewById<android.widget.TextView>(R.id.tvAmount)
+            val progressBar = legendView.findViewById<android.widget.ProgressBar>(R.id.progressBar)
 
             colorIndicator.setBackgroundColor(colors[index % colors.size])
             tvCategory.text = entry.key

@@ -9,8 +9,6 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.expensemanager.R
 import com.example.expensemanager.databinding.ActivityLoginBinding
 import com.example.expensemanager.viewmodel.AuthViewModel
@@ -50,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                 val prefs = getSharedPreferences("ExpenseManagerPrefs", Context.MODE_PRIVATE)
                 prefs.edit().putInt("userId", user.id).apply()
 
-                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show()
                 navigateToMain(user.id)
             }
 

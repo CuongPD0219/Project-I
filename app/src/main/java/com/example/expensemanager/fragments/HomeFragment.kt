@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.expensemanager.R
-import com.example.expensemanager.activities.MainAppActivity
 import com.example.expensemanager.adapters.ExpenseAdapter
 import com.example.expensemanager.database.Expense
 import com.example.expensemanager.databinding.FragmentHomeBinding
