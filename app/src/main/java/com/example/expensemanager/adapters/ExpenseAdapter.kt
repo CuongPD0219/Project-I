@@ -3,6 +3,7 @@ package com.example.expensemanager.adapters
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -70,6 +71,9 @@ class ExpenseAdapter(
             binding.btnDelete.setOnClickListener {
                 onDeleteClick(expense)
             }
+
+            itemView.startAnimation(AnimationUtils.loadAnimation(itemView.context, R.anim.slide_in_right))
+
         }
 
         private fun getCategoryIcon(category: String, isExpense: Boolean): Int {

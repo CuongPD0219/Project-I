@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -31,6 +32,9 @@ class LoginActivity : AppCompatActivity() {
             navigateToMain(userId)
             return
         }
+
+        binding.imgLogo.startAnimation(AnimationUtils.loadAnimation(this, R.anim.bounce))
+        binding.cardLogin.startAnimation(AnimationUtils.loadAnimation(this, R.anim.slide_in_up))
 
         setupObservers()
         setupListeners()

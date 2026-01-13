@@ -73,9 +73,9 @@ class StatisticsFragment : Fragment() {
 
             binding.tvMonthlyBalance.setTextColor(
                 if (balance >= 0)
-                    resources.getColor(android.R.color.holo_green_dark, null)
+                    resources.getColor(R.color.success_green, null)
                 else
-                    resources.getColor(android.R.color.holo_red_dark, null)
+                    resources.getColor(R.color.error_red, null)
             )
 
             // Setup pie charts with legends
@@ -139,7 +139,7 @@ class StatisticsFragment : Fragment() {
         val entries = categoryTotals.map { PieEntry(it.value.toFloat(), it.key) }
 
         val dataSet = PieDataSet(entries, "")
-        dataSet.colors = getRedColorScheme()
+        dataSet.colors = getExpenseColorScheme()
         dataSet.valueTextSize = 12f
         dataSet.valueTextColor = Color.WHITE
         dataSet.sliceSpace = 3f
@@ -164,7 +164,7 @@ class StatisticsFragment : Fragment() {
         }
 
         // Create custom legend
-        createCustomLegend(binding.llExpenseLegend, categoryTotals, total, getRedColorScheme())
+        createCustomLegend(binding.llExpenseLegend, categoryTotals, total, getExpenseColorScheme())
     }
 
     private fun setupIncomePieChart(incomes: List<com.example.expensemanager.database.Expense>) {
@@ -186,7 +186,7 @@ class StatisticsFragment : Fragment() {
         val entries = categoryTotals.map { PieEntry(it.value.toFloat(), it.key) }
 
         val dataSet = PieDataSet(entries, "")
-        dataSet.colors = getGreenColorScheme()
+        dataSet.colors = getIncomeColorScheme()
         dataSet.valueTextSize = 12f
         dataSet.valueTextColor = Color.WHITE
         dataSet.sliceSpace = 3f
@@ -211,7 +211,7 @@ class StatisticsFragment : Fragment() {
         }
 
         // Create custom legend
-        createCustomLegend(binding.llIncomeLegend, categoryTotals, total, getGreenColorScheme())
+        createCustomLegend(binding.llIncomeLegend, categoryTotals, total, getIncomeColorScheme())
     }
 
     private fun createCustomLegend(
@@ -243,30 +243,31 @@ class StatisticsFragment : Fragment() {
         }
     }
 
-    private fun getRedColorScheme(): List<Int> {
+    private fun getExpenseColorScheme(): List<Int> {
         return listOf(
-            Color.rgb(239, 83, 80),
-            Color.rgb(229, 57, 53),
-            Color.rgb(198, 40, 40),
-            Color.rgb(183, 28, 28),
-            Color.rgb(255, 138, 101),
-            Color.rgb(255, 87, 34),
-            Color.rgb(244, 67, 54),
-            Color.rgb(211, 47, 47)
+            Color.rgb(66, 165, 245),   // Xanh dương
+            Color.rgb(239, 83, 80),    // Đỏ
+            Color.rgb(102, 187, 106),  // Xanh lá
+            Color.rgb(255, 167, 38),   // Cam
+            Color.rgb(171, 71, 188),   // Tím
+            Color.rgb(255, 238, 88),   // Vàng
+            Color.rgb(38, 198, 218),   // Xanh ngọc
+            Color.rgb(255, 112, 167)   // Hồng
         )
     }
 
-    private fun getGreenColorScheme(): List<Int> {
+    private fun getIncomeColorScheme(): List<Int> {
         return listOf(
-            Color.rgb(102, 187, 106),
-            Color.rgb(76, 175, 80),
-            Color.rgb(67, 160, 71),
-            Color.rgb(56, 142, 60),
-            Color.rgb(46, 125, 50),
-            Color.rgb(129, 199, 132),
-            Color.rgb(165, 214, 167),
-            Color.rgb(27, 94, 32)
+            Color.rgb(156, 39, 176),   // Tím đậm
+            Color.rgb(0, 150, 136),    // Xanh lục lam
+            Color.rgb(255, 193, 7),    // Vàng đậm
+            Color.rgb(33, 150, 243),   // Xanh dương đậm
+            Color.rgb(255, 87, 34),    // Cam đậm
+            Color.rgb(76, 175, 80),    // Xanh lá đậm
+            Color.rgb(121, 85, 72),    // Nâu
+            Color.rgb(96, 125, 139)    // Xám xanh
         )
+
     }
 
     override fun onDestroyView() {

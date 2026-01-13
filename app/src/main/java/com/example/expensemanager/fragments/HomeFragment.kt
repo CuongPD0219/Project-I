@@ -41,6 +41,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Animate balance card
+        binding.cardView.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in))
+
+        // Animate balance number với scale
+        binding.tvBalance.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.scale_in))
+
         setupRecyclerView()
         setupObservers()
     }

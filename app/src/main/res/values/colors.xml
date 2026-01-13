@@ -6,20 +6,62 @@
     <color name="primary_red_light">#FFCDD2</color>
     <color name="accent_red">#FF5252</color>
 
+    <!-- New Gradient Colors -->
+    <color name="gradient_red_start">#D32F2F</color>
+    <color name="gradient_red_end">#F44336</color>
+
+    <color name="gradient_coral_start">#FF6B6B</color>
+    <color name="gradient_coral_end">#FF8E53</color>
+
+    <color name="gradient_purple_start">#667eea</color>
+    <color name="gradient_purple_end">#764ba2</color>
+
+    <color name="gradient_pink_start">#f093fb</color>
+    <color name="gradient_pink_end">#f5576c</color>
+
+    <color name="gradient_blue_start">#4facfe</color>
+    <color name="gradient_blue_end">#00f2fe</color>
+
     <!-- Background Colors -->
     <color name="background_light">#F5F5F5</color>
     <color name="background_white">#FFFFFF</color>
+    <color name="background_dark">#1a1a1a</color>
 
     <!-- Text Colors -->
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#757575</color>
+    <color name="text_white">#FFFFFF</color>
 
     <!-- Status Colors -->
     <color name="success_green">#4CAF50</color>
+    <color name="success_green_light">#8BC34A</color>
     <color name="warning_orange">#FF9800</color>
+    <color name="warning_orange_light">#FFA726</color>
     <color name="error_red">#F44336</color>
 
     <!-- Card Colors -->
     <color name="card_expense">#FFEBEE</color>
     <color name="card_income">#E8F5E9</color>
+
+    <!-- New Accent Colors -->
+    <color name="accent_purple">#9C27B0</color>
+    <color name="accent_blue">#2196F3</color>
+    <color name="accent_teal">#009688</color>
+    <color name="accent_orange">#FF9800</color>
+
+    <!-- Shadow Colors -->
+    <color name="shadow_light">#1A000000</color>
+    <color name="shadow_medium">#33000000</color>
+    <color name="shadow_dark">#4D000000</color>
+
+    <!-- Overlay Colors -->
+    <color name="overlay_light">#33FFFFFF</color>
+    <color name="overlay_dark">#80000000</color>
+
+    <!-- bonus color -->
+    <color name= "color_bonus" >#FFE5B4</color>
+    <color name= "c1">#1F4690</color>
+    <color name= "c2">#3A5BA0</color>
+    <color name= "c3">#1768AC</color>
+
 </resources>
